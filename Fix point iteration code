@@ -1,0 +1,20 @@
+function fixpointiteration( g,fun, a, b, eps)
+if subs(g, a)*subs(g, b)< 0
+    fprintf('Khoang %f va %f la khoang phan li nghiem', a, b)
+else 
+    fprintf('Khoang %f va %f khong la khoang phan li nghiem', a, b)
+end
+df = diff(fun);
+t = linspace(a, b, ceil((b-a)/0.1)+1);
+x = double(subs(df, t));
+q = max(abs(x));
+x0 = t(find(abs(x)==q));
+while true
+    x1 = subs(fun, x0);
+    if q/(1-q)*abs(x1-x0)< eps
+        break
+    end
+    x0 = x1;
+end
+x =double(x1)
+end
